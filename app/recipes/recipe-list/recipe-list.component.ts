@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
-import { Recipe } from '../recipes.model';
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-list',
@@ -9,18 +9,24 @@ import { Recipe } from '../recipes.model';
 })
 export class RecipeListComponent implements OnInit {
 
+  @Output() recipeWasSelected = new EventEmitter<Recipe>();
+
   recipes: Recipe[] = [
     new Recipe('First Test Recipe', 
                'Just a test recipe', 
-               'https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_960_720.jpg'),
+               'https://www.justonecookbook.com/wp-content/uploads/2016/09/Japanese-Pudding-600x400.jpg'),
     new Recipe('Second Test Recipe', 
                'Just a test recipe and it is basically the same as before, so Im going to add a very big description now', 
-               'https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_960_720.jpg')
+               'http://www.thepuddingshop.co.uk/44/icky-sticky-toffee-steamed-pudding.jpg')
   ];
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onRecipeSelected(recipe: Recipe) {
+    this.recipeWasSelected.emit(recipe);
   }
 
 }
